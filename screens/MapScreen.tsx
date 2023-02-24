@@ -1,31 +1,39 @@
+import React, {useState} from 'react';
+import MapView, {Marker, Callout} from 'react-native-maps';
 import { StyleSheet } from 'react-native';
-
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
-import { RootTabScreenProps } from '../types';
+import {Text, View} from "../components/Themed";
 
 export default function MapScreen() {
+
+  const [latitude, setLatitude] = useState(-22.91387958710525)
+  const [longitude, setLongitude] = useState(-47.068131631428884)
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>pedro mapa</Text>
+      <MapView style={styles.map}
+        initialRegion={{
+          latitude: latitude,
+          longitude: longitude,
+          latitudeDelta: 0.003,
+          longitudeDelta: 0.003,
+        }}> 
+
+      <Marker coordinate={{ latitude : latitude, longitude : longitude }}>
+        <Callout>
+          <Text>SENAI</Text>
+        </Callout>
+      </Marker>
+      </MapView>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    title: {
-      fontSize: 20,
-      fontWeight: 'bold',
-    },
-    separator: {
-      marginVertical: 30,
-      height: 1,
-      width: '80%',
-    },
-  });
-  
+  container: {
+    flex: 1,
+  },
+  map: {
+    width: '100%',
+    height: '100%',
+  },
+});
